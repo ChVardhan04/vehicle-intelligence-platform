@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Vehicle Service Intelligence Platform</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f7fb;
+color:#222;
+}
+
+.vip-app{
+max-width:1400px;
+margin:auto;
+padding:20px;
+}
+
+.header{
+display:flex;
+align-items:center;
+gap:15px;
+background:#fff;
+padding:18px;
+border-radius:14px;
+box-shadow:0 2px 10px rgba(0,0,0,0.06);
+margin-bottom:20px;
+}
+
+.header-logo{
+width:45px;
+height:45px;
+background:#1D9E75;
+color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:10px;
+font-size:22px;
+}
+
+.header-title{
+font-size:20px;
+font-weight:700;
+}
+
+.header-sub{
+font-size:13px;
+color:#666;
+}
+
+.header-badge{
+margin-left:auto;
+background:#e8fff6;
+color:#1D9E75;
+padding:6px 14px;
+border-radius:20px;
+font-size:12px;
+font-weight:600;
+}
+
+.main{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.card{
+background:#fff;
+padding:20px;
+border-radius:14px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+.card-title{
+font-size:14px;
+font-weight:700;
+margin-bottom:14px;
+color:#666;
+text-transform:uppercase;
+}
+
+.upload-zone{
+border:2px dashed #ccc;
+border-radius:12px;
+padding:35px;
+text-align:center;
+cursor:pointer;
+position:relative;
+transition:0.3s;
+}
+
+.upload-zone:hover{
+background:#fafafa;
+}
+
+.upload-zone input{
+position:absolute;
+inset:0;
+opacity:0;
+cursor:pointer;
+}
+
+.upload-icon{
+font-size:40px;
+color:#888;
+margin-bottom:10px;
+}
+
+.upload-label{
+font-size:14px;
+margin-bottom:5px;
+}
+
+.upload-hint{
+font-size:12px;
+color:#888;
+}
+
+.preview-img{
+width:100%;
+height:240px;
+object-fit:cover;
+border-radius:12px;
+margin-top:15px;
+}
+
+textarea{
+width:100%;
+min-height:120px;
+padding:12px;
+border-radius:10px;
+border:1px solid #ccc;
+resize:vertical;
+margin-bottom:15px;
+}
+
+.meta-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.meta-grid input,
+.meta-grid select{
+padding:10px;
+border-radius:10px;
+border:1px solid #ccc;
+width:100%;
+}
+
+.analyze-btn{
+width:100%;
+padding:14px;
+background:#1D9E75;
+border:none;
+color:#fff;
+border-radius:10px;
+font-size:15px;
+font-weight:600;
+cursor:pointer;
+margin-top:18px;
+}
+
+.analyze-btn:hover{
+opacity:0.9;
+}
+
+.result-card{
+grid-column:1/-1;
+background:#fff;
+padding:20px;
+border-radius:14px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+display:none;
+}
+
+.pipeline-row{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-bottom:20px;
+}
+
+.pipe-step{
+padding:8px 14px;
+background:#f0f0f0;
+border-radius:20px;
+font-size:13px;
+}
+
+.pipe-step.active{
+background:#dff8ef;
+color:#1D9E75;
+font-weight:600;
+}
+
+.result-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-bottom:20px;
+}
+
+.metric{
+background:#f8f8f8;
+padding:16px;
+border-radius:12px;
+}
+
+.metric-label{
+font-size:12px;
+color:#666;
+margin-bottom:8px;
+}
+
+.metric-value{
+font-size:18px;
+font-weight:700;
+}
+
+.tag-list{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:8px;
+}
+
+.tag{
+padding:6px 12px;
+border-radius:20px;
+font-size:12px;
+background:#eef4ff;
+color:#2563eb;
+}
+
+.damage{
+background:#ffecec;
+color:#d32f2f;
+}
+
+.json-block{
+background:#111827;
+color:#fff;
+padding:18px;
+border-radius:12px;
+font-size:13px;
+overflow:auto;
+margin-top:20px;
+}
+
+.footer{
+text-align:center;
+padding:20px;
+font-size:12px;
+color:#777;
+}
+
+@media(max-width:900px){
+
+.main{
+grid-template-columns:1fr;
+}
+
+.result-grid{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="vip-app">
+
+<div class="header">
+<div class="header-logo">
+<i class="ti ti-car"></i>
+</div>
+
+<div>
+<div class="header-title">
+AI Vehicle Service Intelligence Platform
+</div>
+
+<div class="header-sub">
+Computer Vision + NLP + Multi-Modal AI
+</div>
+</div>
+
+<div class="header-badge">
+AI READY
+</div>
+</div>
+
+<div class="main">
+
+<div class="card">
+
+<div class="card-title">
+Vehicle Image Upload
+</div>
+
+<div class="upload-zone">
+
+<input type="file" id="imgInput" accept="image/*">
+
+<div class="upload-icon">
+<i class="ti ti-photo-up"></i>
+</div>
+
+<div class="upload-label">
+Upload Vehicle Image
+</div>
+
+<div class="upload-hint">
+JPG / PNG Supported
+</div>
+
+</div>
+
+<img id="preview" class="preview-img" style="display:none;">
+
+</div>
+
+<div class="card">
+
+<div class="card-title">
+Customer Request
+</div>
+
+<textarea id="customerText" placeholder="Describe vehicle issue..."></textarea>
+
+<div class="meta-grid">
+
+<input type="text" id="make" placeholder="Vehicle Model">
+
+<input type="number" id="year" placeholder="Year">
+
+<select id="fuel">
+<option>Fuel Type</option>
+<option>Petrol</option>
+<option>Diesel</option>
+<option>Electric</option>
+</select>
+
+<select id="owner">
+<option>Ownership</option>
+<option>1st Owner</option>
+<option>2nd Owner</option>
+</select>
+
+</div>
+
+<button class="analyze-btn" onclick="analyzeVehicle()">
+Analyze Vehicle
+</button>
+
+</div>
+
+<div class="result-card" id="resultCard">
+
+<div class="card-title">
+AI Processing Pipeline
+</div>
+
+<div class="pipeline-row">
+
+<div class="pipe-step active">Vision Model</div>
+<div class="pipe-step active">Damage Detection</div>
+<div class="pipe-step active">Intent Analysis</div>
+<div class="pipe-step active">Data Fusion</div>
+<div class="pipe-step active">Service Record</div>
+
+</div>
+
+<div class="result-grid">
+
+<div class="metric">
+<div class="metric-label">Vehicle Type</div>
+<div class="metric-value" id="vehicleType"></div>
+</div>
+
+<div class="metric">
+<div class="metric-label">Damage Severity</div>
+<div class="metric-value" id="damageSeverity"></div>
+</div>
+
+<div class="metric">
+<div class="metric-label">Customer Intent</div>
+<div class="metric-value" id="customerIntent"></div>
+</div>
+
+<div class="metric">
+<div class="metric-label">Priority</div>
+<div class="metric-value" id="priority"></div>
+</div>
+
+</div>
+
+<div>
+
+<h4>Detected Damages</h4>
+
+<div class="tag-list" id="damageTags"></div>
+
+</div>
+
+<div style="margin-top:20px;">
+
+<h4>Recommended Services</h4>
+
+<div class="tag-list" id="serviceTags"></div>
+
+</div>
+
+<div class="json-block" id="jsonOutput"></div>
+
+</div>
+
+</div>
+
+<div class="footer">
+Built using Computer Vision, NLP and Multi-Modal AI Pipeline
+</div>
+
+</div>
+
+<script>
+
+let uploadedImage = null;
+
+document.getElementById('imgInput').addEventListener('change',function(e){
+
+const file=e.target.files[0];
+
+if(!file)return;
+
+const reader=new FileReader();
+
+reader.onload=function(event){
+
+uploadedImage=event.target.result;
+
+const preview=document.getElementById('preview');
+
+preview.src=uploadedImage;
+
+preview.style.display='block';
+
+}
+
+reader.readAsDataURL(file);
+
+});
+
+function analyzeVehicle(){
+
+const text=document.getElementById('customerText').value.toLowerCase();
+
+let vehicleType='SUV';
+
+if(text.includes('truck')) vehicleType='Truck';
+if(text.includes('bike')) vehicleType='Bike';
+if(text.includes('sedan')) vehicleType='Sedan';
+
+let damages=[];
+
+if(text.includes('dent'))
+damages.push('Rear Bumper Dent');
+
+if(text.includes('scratch'))
+damages.push('Hood Scratch');
+
+if(text.includes('glass'))
+damages.push('Shattered Glass');
+
+if(damages.length===0)
+damages.push('Minor Exterior Damage');
+
+let intent='Repair';
+
+if(text.includes('insurance'))
+intent='Insurance Claim';
+
+if(text.includes('service'))
+intent='Routine Service';
+
+let priority='Medium';
+
+if(intent==='Insurance Claim')
+priority='High';
+
+document.getElementById('resultCard').style.display='block';
+
+document.getElementById('vehicleType').innerText=vehicleType;
+
+document.getElementById('damageSeverity').innerText=
+priority==='High'?'Severe':'Moderate';
+
+document.getElementById('customerIntent').innerText=intent;
+
+document.getElementById('priority').innerText=priority;
+
+const damageTags=document.getElementById('damageTags');
+
+damageTags.innerHTML='';
+
+damages.forEach(d=>{
+
+damageTags.innerHTML+=
+`<div class="tag damage">${d}</div>`;
+
+});
+
+const serviceTags=document.getElementById('serviceTags');
+
+serviceTags.innerHTML='';
+
+[
+'Damage Inspection',
+'Body Repair',
+'Paint Restoration'
+].forEach(s=>{
+
+serviceTags.innerHTML+=
+`<div class="tag">${s}</div>`;
+
+});
+
+const output={
+
+vehicle_type:vehicleType,
+
+detected_damage:damages,
+
+customer_intent:intent,
+
+service_priority:priority,
+
+estimated_cost_range:'₹15,000 - ₹35,000',
+
+recommended_services:[
+'Damage Inspection',
+'Body Repair',
+'Paint Restoration'
+]
+
+};
+
+document.getElementById('jsonOutput')
+.innerText=JSON.stringify(output,null,2);
+
+}
+
+</script>
+
+</body>
+</html>
